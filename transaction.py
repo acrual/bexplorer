@@ -11,19 +11,21 @@ class Tx(object):
         self.tx = p.decoderawtransaction(self.raw)
 
     def __str__(self):
+        fees = 0.0
         cadena = "txid: " + self.txid + "\n"
         if not self.esCoinbase():
             for i in range(len(self.obtenerVins()[0])):
-                # print("aquí: ", str(self.obtenerVins()))
                 tx_input = Tx(str(self.obtenerVins()[0][i]))
-                cadena += "txid de input: " + str(tx_input.txid) + "\n"
-                cadena += " desde " + str(tx_input.txid) + " y " + "n " + str(self.obtenerVins()[1][i]) + " salen " + str(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value']) + "\n"
+                cadena += "desde " + str(tx_input.txid) + " y " + "n " + str(self.obtenerVins()[1][i]) + " salen " + str(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value']) + "\n"
+                if not self.esNullType(i):
+                    fees += float(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value'])
         else:
             cadena += "es coinbase" + "\n"
         
         for i in range(len(self.obtenerVouts()[0])):
             cadena += "en " + str(self.obtenerVouts()[0][i]) + " entran " + str(self.obtenerVouts()[1][i]) + "\n"
-        return cadena
+            fees -= float(self.obtenerVouts()[1][i])
+        return cadena + "\n" + "fees: " + str(fees) + "\n"
 
 
     def esNullType(self, i):
