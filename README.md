@@ -1,3 +1,5 @@
+# estoy trabajando con la librería de Peter Todd cuyos comentarios puedes ver abajo para crear un blockexplorer
+
 # python-bitcoinlib
 
 This Python3 library provides an easy interface to the bitcoin data
