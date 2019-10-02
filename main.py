@@ -1,3 +1,9 @@
+# linea 19 de transaction, está obteniendo el txid y n del que sale el bitcoin pero lo que tiene que obtener
+# es el address. Corregir. A continuación:
+# # lo que falta es coger cada dirección de entrada y salida e ir aplicándole lo que cambia el saldo
+# e ir grabándola en la bbdd. Si unanueva dirección está en la bbdd, debe actualizarse el saldo
+# si no está, se graba con el movimiento de esa nueva tx
+
 from transaction import Tx
 import bitcoin
 from bitcoin.rpc import RawProxy
