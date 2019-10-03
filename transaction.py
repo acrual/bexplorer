@@ -1,4 +1,3 @@
-import bitcoin
 from bitcoin.rpc import RawProxy
 
 p = RawProxy()
@@ -16,8 +15,9 @@ class Tx(object):
         if not self.esCoinbase():
             for i in range(len(self.obtenerVins()[0])):
                 tx_input = Tx(str(self.obtenerVins()[0][i]))
-                cadena += "desde " + str(tx_input.txid) + " y " + "n " + str(self.obtenerVins()[1][i]) + " salen " + str(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value']) + "\n"
-                if not self.esNullType(i):
+                cadena += "txid input: " + str(tx_input.txid) + "\n"
+                cadena += "desde dire " + str(tx_input.obtenerVoutsN(self.obtenerVins()[1][i])[0]) + " salen " + str(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value']) + "\n"
+                if not tx_input.esNullType(self.tx['vin'][i]['vout']):
                     fees += float(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value'])
         else:
             cadena += "es coinbase" + "\n"
@@ -58,6 +58,7 @@ class Tx(object):
                 direcciones.append(str(self.tx['vout'][i]['scriptPubKey']['addresses'][0]))
         return direcciones, cantidades
         
-            
-
-    # hay que 
+    def obtenerVoutsN(self, n):
+        cantidad = self.tx['vout'][n]['value']
+        dire = self.tx['vout'][n]['scriptPubKey']['addresses'][0]
+        return dire, cantidad
