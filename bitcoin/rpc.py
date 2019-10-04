@@ -139,7 +139,7 @@ class BaseProxy(object):
                 if platform.system() == 'Darwin':
                     btc_conf_file = os.path.expanduser('~/Library/Application Support/Bitcoin/')
                 elif platform.system() == 'Windows':
-                    btc_conf_file = os.path.join(os.environ['APPDATA'], 'Bitcoin-testnet')
+                    btc_conf_file = os.path.join(os.environ['APPDATA'], 'Bitcoin-testnet') 
                     # print(btc_conf_file)
                     # btc_conf_file = ('D:\')
                 else:

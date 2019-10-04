@@ -21,10 +21,10 @@ class Tx(object):
                     fees += float(tx_input.tx['vout'][self.obtenerVins()[1][i]]['value'])
         else:
             cadena += "es coinbase" + "\n"
-        
         for i in range(len(self.obtenerVouts()[0])):
             cadena += "en " + str(self.obtenerVouts()[0][i]) + " entran " + str(self.obtenerVouts()[1][i]) + "\n"
-            fees -= float(self.obtenerVouts()[1][i])
+            if not self.esCoinbase():
+                fees -= float(self.obtenerVouts()[1][i])
         return cadena + "\n" + "fees: " + str(fees) + "\n"
 
 
